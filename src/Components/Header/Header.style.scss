@@ -1,0 +1,9 @@
+@import "../../../styles/mixin";
+
+.Header {
+  grid-area: Header;
+  background-color: #efefff;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
