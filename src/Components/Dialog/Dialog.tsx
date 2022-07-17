@@ -19,19 +19,18 @@ export const Dialog = () => {
     };
 
     getData();
-    const createSubscription = () => {
-      cable.subscriptions.create(
-        { channel: "ConversationChannel", conversation: id },
-        {
-          received(data) {
-            setMessages([...messages, data]);
-          },
-        }
-      );
-    };
-    createSubscription();
   }, []);
-
+  const createSubscription = () => {
+    cable.subscriptions.create(
+      { channel: "ConversationChannel", conversation: id },
+      {
+        received(data) {
+          setMessages([...messages, data]);
+        },
+      }
+    );
+  };
+  createSubscription();
   return (
     <div>
       Dialog
