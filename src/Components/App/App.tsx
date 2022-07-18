@@ -6,12 +6,18 @@ import { Blanc } from "../blanc/Blanc";
 import { Conversation } from "../Conversations/Conversation";
 import { Dialog } from "../Dialog/Dialog";
 import { Header } from "../Header/Header";
+import { Login } from "../Login/Login";
 
 import { Sidebar } from "../Sidebar/Sidebar";
 import { WorkingPanel } from "../WorkingPanel/WorkingPanel";
 import "./App.style.scss";
+import { useToken } from "./useToken";
 
 export const App = () => {
+  const { token, setToken } = useToken();
+  if (!token) {
+    return <Login setToken={setToken} />;
+  }
   const routes = [
     { path: "/", name: "Orders", Component: <Blanc /> },
     { path: "/conversations", name: "Conversations", Component: <Conversation /> },
@@ -20,7 +26,7 @@ export const App = () => {
     { path: "/categories", name: "Categories", Component: <Blanc /> },
     { path: "/services", name: "Services", Component: <Blanc /> },
   ];
-  console.log(process.env.BASE_URL);
+
   return (
     <div className="App">
       <HashRouter>

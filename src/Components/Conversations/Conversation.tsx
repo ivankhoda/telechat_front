@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useToken } from "../App/useToken";
 import { ConversationComponent, ConversationProps } from "./ConversationComponent";
 export type Message = {
   message: string;
@@ -7,10 +8,11 @@ export type Message = {
   conversation_id: number;
   user_id: number;
 };
-const history = History;
 
 export const Conversation = () => {
   const [conversations, setConversations] = useState<ConversationProps[]>([]);
+  const { getToken } = useToken();
+  let token = getToken();
 
   const navigate = useNavigate();
 
@@ -18,6 +20,7 @@ export const Conversation = () => {
     const getData = async () => {
       const conversationsData = await fetch(`${process.env.BASE_URL}/conversations`, {
         method: "GET",
+        headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
       });
       const conversationDataResponse = await conversationsData.json();
       setConversations(conversationDataResponse);
