@@ -2,12 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useToken } from "../App/useToken";
 import { ConversationComponent, ConversationProps } from "./ConversationComponent";
-export type Message = {
-  message: string;
-  id: number;
-  conversation_id: number;
-  user_id: number;
-};
 
 export const Conversation = () => {
   const [conversations, setConversations] = useState<ConversationProps[]>([]);
