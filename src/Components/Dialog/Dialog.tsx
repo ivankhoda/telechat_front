@@ -39,7 +39,9 @@ export const Dialog = () => {
       }
     );
   };
-  createSubscription(id);
+  if (id) {
+    createSubscription(id);
+  }
 
   return (
     <div className="">
