@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useToken } from "../App/useToken";
 import { Message } from "../Message/Message";
+import "./Dialog.style.scss";
 
 import { MessageForm } from "../MessageForm/MessageForm";
 
@@ -24,29 +25,32 @@ export const Dialog = () => {
         });
       const conversationDataResponse = await getMessagesData(id);
       const messagesData = await conversationDataResponse.json();
-      setMessages(messagesData);
+      setMessages(messagesData.reverse());
     };
-
+    if (id) {
+      createSubscription(id);
+    }
     getData();
   }, []);
+
+  const handleReceivedMessage = (message: any) => {
+    setMessages([...messages, message]);
+  };
   const createSubscription = (conversationId: string | undefined) => {
     cable.subscriptions.create(
       { channel: "ConversationChannel", conversation: conversationId },
       {
-        received(data) {
-          setMessages([...messages, data]);
+        received: (data) => {
+          handleReceivedMessage(data);
         },
       }
     );
   };
-  if (id) {
-    createSubscription(id);
-  }
 
+  console.log(messages);
   return (
-    <div className="">
-      Dialog
-      <div>
+    <div className="dialog">
+      <div className="dialog__messages">
         {messages.length > 0
           ? messages.map((message) => (
               <Message

@@ -1,5 +1,6 @@
 import React from "react";
-import { MenuItem } from "../Link/Link";
+import { Link } from "react-router-dom";
+import "./ConversationComponent.style.scss";
 
 export type ConversationProps = {
   name: string;
@@ -7,14 +8,24 @@ export type ConversationProps = {
   created_at: string;
   item: ConversationProps;
   getMessages: (item: ConversationProps) => void;
+  deleteConversation: (id: number) => void;
 };
 
 export const ConversationComponent = (props: ConversationProps) => {
-  const { id, name, item, getMessages, created_at } = props;
+  const { id, name, item, getMessages, created_at, deleteConversation } = props;
 
   return (
-    <div key={id} onClick={() => getMessages(item)}>
-      <MenuItem linkTo={"/conversations/:id"} text={name} />
-    </div>
+    <>
+      <div className="conversation-wrapper">
+        <div className="conversation" key={id} onClick={() => getMessages(item)}>
+          <Link to={"/conversations/:id"} className="conversation__name">
+            Conversation with: {name}
+          </Link>
+        </div>
+        <button onClick={() => deleteConversation(id)} className="conversation__delete">
+          Delete
+        </button>
+      </div>
+    </>
   );
 };

@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router";
 import { HashRouter } from "react-router-dom";
 import "../../style.scss";
 import { Blanc } from "../blanc/Blanc";
-import { Conversation } from "../Conversations/Conversation";
+import { ConversationsContainer } from "../Conversations/ConversationsContainer";
 import { Dialog } from "../Dialog/Dialog";
 import { Header } from "../Header/Header";
 import { Login } from "../Login/Login";
@@ -20,7 +20,7 @@ export const App = () => {
   }
   const routes = [
     { path: "/", name: "Orders", Component: <Blanc /> },
-    { path: "/conversations", name: "Conversations", Component: <Conversation /> },
+    { path: "/conversations", name: "Conversations", Component: <ConversationsContainer /> },
     { path: "/conversations/conversation/:id", name: "Conversations", Component: <Dialog /> },
     { path: "/assignees", name: "Assignees", Component: <Blanc /> },
     { path: "/categories", name: "Categories", Component: <Blanc /> },
