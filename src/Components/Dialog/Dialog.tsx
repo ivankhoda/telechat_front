@@ -35,6 +35,7 @@ export const Dialog = () => {
       { channel: "ConversationChannel", conversation: conversationId },
       {
         received: (data) => {
+          console.log(data);
           setMessages([...messages, data]);
         },
       }
@@ -47,18 +48,16 @@ export const Dialog = () => {
     <div className="dialog">
       <div className="dialog__messages">
         {messages.length > 0
-          ? messages
-              .reverse()
-              .map((message) => (
-                <Message
-                  key={message.id}
-                  message={message.message}
-                  id={message.id}
-                  conversation_id={message.conversation_id}
-                  user_id={message.user_id}
-                  created_at={message.created_at}
-                />
-              ))
+          ? messages.map((message) => (
+              <Message
+                key={message.id}
+                message={message.message}
+                id={message.id}
+                conversation_id={message.conversation_id}
+                user_id={message.user_id}
+                created_at={message.created_at}
+              />
+            ))
           : null}
       </div>
       <MessageForm />

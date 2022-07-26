@@ -1,3 +1,4 @@
+import ActionCable from "actioncable";
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { useNavigate } from "react-router-dom";
@@ -19,7 +20,9 @@ export const ConversationsContainer = () => {
   const changePage = ({ selected }) => {
     setPageNumber(selected);
   };
+  const cable = ActionCable.createConsumer("ws://localhost:3000/cable");
 
+  console.log(cable.subscriptions);
   useEffect(() => {
     const getData = async () => {
       const conversationsData = await fetch(`${process.env.BASE_URL}/conversations`, {
@@ -31,6 +34,7 @@ export const ConversationsContainer = () => {
     };
 
     getData();
+    // createSubscription();
   }, []);
 
   const onClick = async (item: ConversationProps) => {
@@ -41,7 +45,6 @@ export const ConversationsContainer = () => {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
     }).then((response) => {
-      console.log(response.json());
       const newArray = conversations?.filter((conversation) => conversation.id !== item.id);
       setConversations(newArray);
     });
