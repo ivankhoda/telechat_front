@@ -2,3 +2,18 @@
   display: flex;
   flex-direction: row;
 }
+
+.message__text {
+  font-weight: bold;
+  margin: 10px;
+}
+
+.message__from {
+  font-size: 12px;
+  margin: 10px;
+}
+
+.message__date {
+  font-size: 12px;
+  margin: 10px;
+}

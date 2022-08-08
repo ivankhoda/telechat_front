@@ -9,11 +9,11 @@ import { MessageForm } from "../MessageForm/MessageForm";
 
 export const Dialog = () => {
   const [messages, setMessages] = useState<Message[]>([]);
-
-  const [user, setUser] = useState();
+  const { getToken, getUserId } = useToken();
+  const [user, setUser] = useState(getUserId());
   const cable = ActionCable.createConsumer("ws://localhost:3000/cable");
   const { id } = useParams();
-  const { getToken, getUserId } = useToken();
+
   let token = getToken();
 
   useEffect(() => {
@@ -35,7 +35,6 @@ export const Dialog = () => {
       { channel: "ConversationChannel", conversation: conversationId },
       {
         received: (data) => {
-          console.log(data);
           setMessages([...messages, data]);
         },
       }

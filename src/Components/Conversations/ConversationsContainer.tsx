@@ -22,7 +22,6 @@ export const ConversationsContainer = () => {
   };
   const cable = ActionCable.createConsumer("ws://localhost:3000/cable");
 
-  console.log(cable.subscriptions);
   useEffect(() => {
     const getData = async () => {
       const conversationsData = await fetch(`${process.env.BASE_URL}/conversations`, {
